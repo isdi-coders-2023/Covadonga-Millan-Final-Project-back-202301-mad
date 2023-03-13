@@ -1,6 +1,7 @@
 import createDebug from 'debug';
 import http from 'http';
 import { app } from './app';
+import { dbConnect } from './db/db.connect';
 
 const debug = createDebug('pet-hospital');
 
