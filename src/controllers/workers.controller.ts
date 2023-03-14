@@ -7,15 +7,9 @@ import { RepoWorker } from '../repositories/repoWorker.interface.js';
 import { WorkerModel } from '../repositories/workers.mongo.model.js';
 const debug = createDebug('pet:hospital:workers');
 
-export class WorkerController {
+export class WorkersController {
   constructor(public repo: RepoWorker<Worker>) {
     debug('Instantiate');
-  }
-
-  async search(query: { key: string; value: unknown }): Promise<Worker[]> {
-    debug('Search');
-    const data = await WorkerModel.find({ [query.key]: query.value });
-    return data;
   }
 
   async login(req: Request, resp: Response, next: NextFunction) {
