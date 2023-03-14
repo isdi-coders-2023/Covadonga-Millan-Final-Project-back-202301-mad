@@ -1,26 +1,27 @@
 import { Auth } from '../helpers/auth.js';
 import { Request, Response } from 'express';
 import { WorkersController } from './workers.controller.js';
+import { Worker } from '../entities/worker.js';
+import { RepoWorker } from '../repositories/repoWorker.interface.js';
 
 jest.mock('../helpers/auth.js');
 
 const secretWord = 'secret';
 describe('Given the class WorkersController', () => {
+  const mockRepoWorkers = {
+    search: jest.fn(),
+    create: jest.fn(),
+  };
+
+  const controller = new WorkersController(mockRepoWorkers);
+
+  const resp = {
+    status: jest.fn(),
+    json: jest.fn(),
+  } as unknown as Response;
+
+  const next = jest.fn();
   describe('When we use the login method', () => {
-    const mockRepoUsers = {
-      search: jest.fn(),
-      create: jest.fn(),
-    };
-
-    const controller = new WorkersController(mockRepoUsers);
-
-    const resp = {
-      status: jest.fn(),
-      json: jest.fn(),
-    } as unknown as Response;
-
-    const next = jest.fn();
-
     test('Then when the login is successful ', async () => {
       const req = {
         body: {
@@ -29,10 +30,10 @@ describe('Given the class WorkersController', () => {
         },
       } as unknown as Request;
 
-      mockRepoUsers.search.mockResolvedValue([1]);
+      mockRepoWorkers.search.mockResolvedValue([1]);
       Auth.compare = jest.fn().mockResolvedValue(true);
       await controller.login(req, resp, next);
-      expect(mockRepoUsers.search).toHaveBeenCalled();
+      expect(mockRepoWorkers.search).toHaveBeenCalled();
     });
 
     test('Then when the login is not successful because there is no data', async () => {
@@ -42,9 +43,9 @@ describe('Given the class WorkersController', () => {
           password: secretWord,
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockResolvedValue([]);
+      mockRepoWorkers.search.mockResolvedValue([]);
       await controller.login(req, resp, next);
-      expect(mockRepoUsers.search).toHaveBeenCalled();
+      expect(mockRepoWorkers.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
 
@@ -54,7 +55,7 @@ describe('Given the class WorkersController', () => {
           password: secretWord,
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockRejectedValue('error');
+      mockRepoWorkers.search.mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -65,7 +66,7 @@ describe('Given the class WorkersController', () => {
           email: 'email',
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockRejectedValue('error');
+      mockRepoWorkers.search.mockRejectedValue('error');
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
@@ -77,9 +78,9 @@ describe('Given the class WorkersController', () => {
           password: secretWord,
         },
       } as unknown as Request;
-      mockRepoUsers.search.mockResolvedValue([]);
+      mockRepoWorkers.search.mockResolvedValue([]);
       await controller.login(req, resp, next);
-      expect(mockRepoUsers.search).toHaveBeenCalled();
+      expect(mockRepoWorkers.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
 
@@ -91,9 +92,50 @@ describe('Given the class WorkersController', () => {
         },
       } as unknown as Request;
       Auth.compare = jest.fn().mockResolvedValue(false);
-      mockRepoUsers.search.mockResolvedValue([{ password: secretWord }]);
+      mockRepoWorkers.search.mockResolvedValue([{ password: secretWord }]);
       await controller.login(req, resp, next);
-      expect(mockRepoUsers.search).toHaveBeenCalled();
+      expect(mockRepoWorkers.search).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe('When we use the register method', () => {
+    test('Then when we have all the correct data, resp.json should have been called', async () => {
+      const req = {
+        body: {
+          email: 'email',
+          password: secretWord,
+        },
+      } as Request;
+      await controller.register(req, resp, next);
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then if there is not a password, next function should have been called', async () => {
+      const req = {
+        body: {
+          email: 'email',
+        },
+      } as Request;
+      await controller.register(req, resp, next);
+      expect(next).toHaveBeenCalled();
+    });
+
+    test('Then if there is no email, next function should have been called', async () => {
+      const req = {
+        body: {
+          password: secretWord,
+        },
+      } as Request;
+      await controller.register(req, resp, next);
+      expect(next).toHaveBeenCalled();
+    });
+
+    test('Then when there is no data, next function should have been called', async () => {
+      const req = {
+        body: {},
+      } as Request;
+      await controller.register(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
   });

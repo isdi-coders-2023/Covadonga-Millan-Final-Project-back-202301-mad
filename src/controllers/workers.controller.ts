@@ -48,4 +48,21 @@ export class WorkersController {
       next(error);
     }
   }
+
+  async register(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('register:post');
+      if (!req.body.email || !req.body.password)
+        throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
+      req.body.password = await Auth.hash(req.body.password);
+      req.body.things = [];
+      const data = await this.repo.create(req.body);
+      resp.status(201);
+      resp.json({
+        results: [data],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
