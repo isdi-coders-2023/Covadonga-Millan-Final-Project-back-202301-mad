@@ -12,4 +12,4 @@ const workerSchema = new Schema<Worker>({
     required: true,
   },
 });
-export const WorkerModel = model('User', workerSchema, 'users');
+export const WorkerModel = model('Worker', workerSchema, 'workers');
