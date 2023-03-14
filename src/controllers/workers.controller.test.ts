@@ -57,6 +57,7 @@ describe('Given the class WorkersController', () => {
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
+
     test('Then when the password is missing, next function will be called', async () => {
       const req = {
         body: {
@@ -67,6 +68,7 @@ describe('Given the class WorkersController', () => {
       await controller.login(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
+
     test('Then if there is no data it should throw an HTTPError ', async () => {
       const req = {
         body: {
@@ -79,6 +81,7 @@ describe('Given the class WorkersController', () => {
       expect(mockRepoUsers.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
+
     test('Then it should throw an HTTPError if the password is ok', async () => {
       const req = {
         body: {
