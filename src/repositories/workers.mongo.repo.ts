@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import { Worker } from '../entities/worker.js';
-import { RepoWorker } from './repo.interface.js';
+import { RepoWorker } from './repoWorker.interface.js';
 import { WorkerModel } from './workers.mongo.model.js';
 const debug = createDebug('pet-hospital:repo:users');
 
