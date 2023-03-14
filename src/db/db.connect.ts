@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import mongoose from 'mongoose';
 import { config } from '../config.js';
-const debug = createDebug('Social:connect');
+const debug = createDebug('pet-hospital:connect');
 
 const { user, passwd, cluster, dbName } = config;
 
