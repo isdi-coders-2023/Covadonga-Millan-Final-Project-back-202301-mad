@@ -2,6 +2,7 @@ import cors from 'cors';
 import createDebug from 'debug';
 import express from 'express';
 import morgan from 'morgan';
+import { workersRouter } from './routers/workers.router.js';
 
 const debug = createDebug('pet-hospital:app');
 export const app = express();
@@ -13,5 +14,5 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
-// A app.use('/users', usersRouter);
+app.use('/workers', workersRouter);
 // A app.use(errorsMiddleware);
