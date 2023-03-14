@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import createDebug from 'debug';
-import { config } from '../config';
+import { config } from '../config.js';
 import { HTTPError } from '../errors/httpError.js';
 const debug = createDebug('pet-hospital:helpers:auth');
 debug('Loaded static class');
