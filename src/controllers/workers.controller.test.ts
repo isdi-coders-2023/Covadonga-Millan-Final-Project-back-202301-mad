@@ -4,7 +4,7 @@ import { WorkersController } from './workers.controller.js';
 
 jest.mock('../helpers/auth.js');
 
-const password = 'password';
+const secretWord = 'secret';
 describe('Given the class WorkersController', () => {
   describe('When we use the login method', () => {
     const mockRepoUsers = {
@@ -25,7 +25,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password,
+          password: secretWord,
         },
       } as unknown as Request;
 
@@ -39,7 +39,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password,
+          password: secretWord,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockResolvedValue([]);
@@ -51,7 +51,7 @@ describe('Given the class WorkersController', () => {
     test('Then when the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          password,
+          password: secretWord,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
@@ -74,7 +74,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password,
+          password: secretWord,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockResolvedValue([]);
@@ -87,11 +87,11 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password,
+          password: secretWord,
         },
       } as unknown as Request;
       Auth.compare = jest.fn().mockResolvedValue(false);
-      mockRepoUsers.search.mockResolvedValue([{ password: 'password' }]);
+      mockRepoUsers.search.mockResolvedValue([{ password: secretWord }]);
       await controller.login(req, resp, next);
       expect(mockRepoUsers.search).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
