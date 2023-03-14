@@ -19,9 +19,10 @@ export class WorkersMongoRepo implements RepoWorker<Worker> {
     debug('Instantiate');
   }
 
-  async search(query: { key: string; value: unknown }): Promise<User[]> {
+  async search(query: { key: string; value: unknown }): Promise<Worker[]> {
     debug('search');
     const data = await WorkerModel.find({ [query.key]: query.value });
+    debug(data);
     return data;
   }
 
