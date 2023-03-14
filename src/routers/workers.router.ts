@@ -13,3 +13,4 @@ const repo = WorkersMongoRepo.getInstance();
 const controller = new WorkersController(repo);
 
 workersRouter.post('/login', controller.login.bind(controller));
+workersRouter.post('/register', controller.register.bind(controller));

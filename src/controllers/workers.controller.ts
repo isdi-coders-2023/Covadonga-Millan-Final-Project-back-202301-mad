@@ -30,9 +30,7 @@ export class WorkersController {
       if (!data.length)
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
 
-      // A if (!(await Auth.compare(req.body.password, data[0].password)))
-
-      if (req.body.password !== data[0].password)
+      if (!(await Auth.compare(req.body.password, data[0].password)))
         throw new HTTPError(401, 'Unauthorized', 'Password does not match');
 
       const payload: PayloadToken = {
@@ -54,6 +52,7 @@ export class WorkersController {
       debug('register:post');
       if (!req.body.email || !req.body.password)
         throw new HTTPError(401, 'Unauthorized', 'Invalid Email or password');
+      console.log(req.body.email, req.body.passwd, req.body.name);
       req.body.password = await Auth.hash(req.body.password);
       req.body.things = [];
       const data = await this.repo.create(req.body);
