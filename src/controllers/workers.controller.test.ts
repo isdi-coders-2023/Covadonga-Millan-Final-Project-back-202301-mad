@@ -1,8 +1,6 @@
 import { Auth } from '../helpers/auth.js';
 import { Request, Response } from 'express';
 import { WorkersController } from './workers.controller.js';
-import { Worker } from '../entities/worker.js';
-import { RepoWorker } from '../repositories/repoWorker.interface.js';
 
 jest.mock('../helpers/auth.js');
 
