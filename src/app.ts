@@ -13,5 +13,5 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/users', usersRouter);
-// app.use(errorsMiddleware);
+// A app.use('/users', usersRouter);
+// A app.use(errorsMiddleware);
