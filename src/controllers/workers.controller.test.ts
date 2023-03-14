@@ -4,6 +4,7 @@ import { WorkersController } from './workers.controller.js';
 
 jest.mock('../helpers/auth.js');
 
+const password = 'password';
 describe('Given the class WorkersController', () => {
   describe('When we use the login method', () => {
     const mockRepoUsers = {
@@ -24,7 +25,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password: 'password',
+          password,
         },
       } as unknown as Request;
 
@@ -38,7 +39,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password: 'password',
+          password,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockResolvedValue([]);
@@ -50,7 +51,7 @@ describe('Given the class WorkersController', () => {
     test('Then when the email is missing, next function will be called', async () => {
       const req = {
         body: {
-          password: 'password',
+          password,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockRejectedValue('error');
@@ -73,7 +74,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password: 'password',
+          password,
         },
       } as unknown as Request;
       mockRepoUsers.search.mockResolvedValue([]);
@@ -86,7 +87,7 @@ describe('Given the class WorkersController', () => {
       const req = {
         body: {
           email: 'email',
-          password: 'password',
+          password,
         },
       } as unknown as Request;
       Auth.compare = jest.fn().mockResolvedValue(false);
