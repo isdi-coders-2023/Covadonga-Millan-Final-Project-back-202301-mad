@@ -5,7 +5,7 @@ describe('Given dbConnect function', () => {
     test('Then it should be a connection to testing db', async () => {
       const result = await dbConnect();
       expect(typeof result).toBe(typeof mongoose);
-      expect(mongoose.connection.db.databaseName).toContain('Test');
+      expect(mongoose.connection.db.databaseName).toContain('Testing');
       mongoose.disconnect();
     });
   });
@@ -13,7 +13,7 @@ describe('Given dbConnect function', () => {
     test('Then it should be a connection to testing db', async () => {
       const result = await dbConnect('dev');
       expect(typeof result).toBe(typeof mongoose);
-      expect(mongoose.connection.db.databaseName).not.toContain('Test');
+      expect(mongoose.connection.db.databaseName).not.toContain('Testing');
       mongoose.disconnect();
     });
   });
