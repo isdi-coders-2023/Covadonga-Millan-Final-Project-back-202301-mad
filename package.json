@@ -8,6 +8,7 @@
     "start": "cross-env DEBUG=pet-hospital* PORT=4200 node ./dist/index.js -w",
     "start:mon": "cross-env DEBUG=pet-hospital* PORT=4200 nodemon ./dist/index.js",
     "build": "tsc -w",
+    "build:prod": "tsc",
     "test": "jest --watchAll --coverage",
     "test:prod": "jest --watchAll --coverage --watchAll=false"
   },
