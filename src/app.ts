@@ -15,4 +15,13 @@ app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/workers', workersRouter);
+app.get('/', (_req, resp) => {
+  resp.json({
+    info: 'Pet-Hospital',
+    endpoints: {
+      workers: '/workers',
+      pets: '/pets',
+    },
+  });
+});
 // A app.use(errorsMiddleware);
