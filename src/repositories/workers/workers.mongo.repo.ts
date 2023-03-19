@@ -1,5 +1,5 @@
 import createDebug from 'debug';
-import { Worker } from '../entities/worker.js';
+import { Worker } from '../../entities/worker.js';
 import { RepoWorker } from './repoWorker.interface.js';
 import { WorkerModel } from './workers.mongo.model.js';
 const debug = createDebug('pet-hospital:repo:users');
@@ -16,7 +16,7 @@ export class WorkersMongoRepo implements RepoWorker<Worker> {
   }
 
   private constructor() {
-    debug('Instantiate');
+    debug('Instantiate worker');
   }
 
   async search(query: { key: string; value: unknown }): Promise<Worker[]> {
