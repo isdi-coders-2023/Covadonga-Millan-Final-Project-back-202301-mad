@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { HTTPError } from '../errors/httpError';
-import { Auth, PayloadToken } from '../helpers/auth';
+import { HTTPError } from '../errors/httpError.js';
+import { Auth, PayloadToken } from '../helpers/auth.js';
 const debug = createDebug('pet-hospital:interceptor:logged');
 
 export interface RequestPlus extends Request {

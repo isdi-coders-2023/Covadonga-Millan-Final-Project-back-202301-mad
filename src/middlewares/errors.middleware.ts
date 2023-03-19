@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Error } from 'mongoose';
-import { CustomError, HTTPError } from '../errors/httpError';
+import { CustomError, HTTPError } from '../errors/httpError.js';
 import createDebug from 'debug';
 const debug = createDebug('pet-hospital:errors middleware');
 

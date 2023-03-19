@@ -2,6 +2,7 @@ import cors from 'cors';
 import createDebug from 'debug';
 import express from 'express';
 import morgan from 'morgan';
+import { errorsMiddleware } from './middlewares/errors.middleware.js';
 import { workersRouter } from './routers/workers.router.js';
 
 const debug = createDebug('pet-hospital:app');
@@ -24,4 +25,4 @@ app.get('/', (_req, resp) => {
     },
   });
 });
-// A app.use(errorsMiddleware);
+app.use(errorsMiddleware);
