@@ -1,10 +1,11 @@
 export type Pet = {
-  nhc: string;
+  id: string;
   name: string;
   age: number;
   species: string;
   breed: string;
   owner: string;
   phone: number[];
-  mail: string;
+  email: string;
+  img: string;
 };

@@ -2,7 +2,7 @@ import createDebug from 'debug';
 import { Request, NextFunction, Response } from 'express';
 import { HTTPError } from '../errors/httpError.js';
 import { Auth, PayloadToken } from '../helpers/auth.js';
-import { WorkersMongoRepo } from '../repositories/workers.mongo.repo.js';
+import { WorkersMongoRepo } from '../repositories/workers/workers.mongo.repo.js';
 const debug = createDebug('pet-hospital:workers');
 
 export class WorkersController {
