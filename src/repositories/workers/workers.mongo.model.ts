@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { Worker } from '../entities/worker.js';
+import { Worker } from '../../entities/worker.js';
 
 const workerSchema = new Schema<Worker>({
   email: {
@@ -10,6 +10,14 @@ const workerSchema = new Schema<Worker>({
   password: {
     type: String,
     required: true,
+  },
+});
+
+workerSchema.set('toJSON', {
+  transform(_document, returnedObject) {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject.__v;
+    delete returnedObject._id;
   },
 });
 export const WorkerModel = model('Worker', workerSchema, 'workers');
