@@ -6,6 +6,10 @@ const petSchema = new Schema<Pet>({
     type: String,
     required: true,
   },
+  kg: {
+    type: Number,
+    required: true,
+  },
   age: {
     type: Number,
     required: true,
@@ -32,6 +36,14 @@ const petSchema = new Schema<Pet>({
     type: String,
     required: true,
     unique: true,
+  },
+  temper: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
   },
   img: {
     type: String,

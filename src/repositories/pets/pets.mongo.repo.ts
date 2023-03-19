@@ -10,29 +10,20 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     debug('Instantiate pet');
   }
 
-  async query(): Promise<Pet[]> {
-    const data = await PetModel.find();
-    return data;
-  }
-
-  async queryId(id: string): Promise<Pet> {
-    debug('queryId: ' + id);
-    const data = await PetModel.findById(id);
-
-    if (!data)
-      throw new HTTPError(
-        404,
-        'Id not found',
-        'Id not found while doing queryId'
-      );
-    return data;
-  }
-
-  async search(query: { key: string; value: unknown }) {
+  async search(query: { key: string; value: unknown }): Promise<Pet[]> {
     debug('search pet');
     const data = await PetModel.find({
       [query.key]: query.value,
     });
+    return data;
+  }
+
+  async find(id: string): Promise<Pet> {
+    debug('find: ' + id);
+    const data = await PetModel.findById(id);
+
+    if (!data)
+      throw new HTTPError(404, 'Id not found', 'Id not found while doing find');
     return data;
   }
 
