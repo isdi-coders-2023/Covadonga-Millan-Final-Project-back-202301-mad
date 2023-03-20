@@ -9,9 +9,9 @@ debug('Loaded pets');
 
 const repo = new PetsMongoRepo();
 //  A const controller = new PetsController(repo)
-// petsRouter.post('/', controller.post.bind(controller));
-// petsRouter.get('/', controller.getAll.bind(controller));
-// petsRouter.get('/:id', controller.get.bind(controller));
-// petsRouter.patch('/:id', controller.patch.bind(controller));
-// petsRouter.patch('/discharge', controller.discharge.bind(controller));
-// petsRouter.delete('/:id', controller.delete.bind(controller));
+// petsRouter.post('/', logged, controller.post.bind(controller));
+// petsRouter.get('/', logged, controller.getAll.bind(controller));
+// petsRouter.patch('/discharge/:id', logged, controller.discharge.bind(controller));
+// petsRouter.get('/:id', logged, controller.get.bind(controller));
+// petsRouter.patch('/:id', logged, controller.patch.bind(controller));
+// petsRouter.delete('/:id', logged, controller.delete.bind(controller));

@@ -39,7 +39,7 @@ const petSchema = new Schema<Pet>({
   },
   temper: {
     type: String,
-    required: true,
+    required: false,
   },
   gender: {
     type: String,
@@ -47,7 +47,7 @@ const petSchema = new Schema<Pet>({
   },
   img: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 

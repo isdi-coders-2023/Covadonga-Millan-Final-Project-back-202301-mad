@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import { Router } from 'express';
-import { WorkersController } from '../controllers/workers.controller.js';
+import { WorkersController } from '../controllers/workers/workers.controller.js';
 import { WorkersMongoRepo } from '../repositories/workers/workers.mongo.repo.js';
 const debug = createDebug('pet-hospital:router:workers');
 
