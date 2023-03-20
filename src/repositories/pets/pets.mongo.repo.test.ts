@@ -13,8 +13,16 @@ describe('Given the pets repository', () => {
     });
   });
 
+  describe('When we use the query method', () => {
+    test('Then it should return all de pets', async () => {
+      (PetModel.find as jest.Mock).mockResolvedValue([]);
+      await repo.query();
+      expect(PetModel.find).toHaveBeenCalled();
+    });
+  });
+
   describe(`When we use the search method`, () => {
-    test('Then it should return all pets', async () => {
+    test('Then it should return all pets with given key/value', async () => {
       (PetModel.find as jest.Mock).mockResolvedValue([]);
       await repo.search({ key: 'key', value: 'value' });
       expect(PetModel.find).toHaveBeenCalled();
