@@ -42,7 +42,12 @@ describe('Given the pets controller', () => {
 
   describe('When we use the find owner method', () => {
     test('Then if the method works, it should bring an specific pet', async () => {
-      const req =
+      const req = {
+        params: { ownerElement: 'owner' },
+      } as unknown as Request;
+      await controller.findOwner(req, resp, next);
+      expect(mockRepoPets.findOwner).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then if it does not work, it should throw an error', async () => {
@@ -57,47 +62,100 @@ describe('Given the pets controller', () => {
   });
 
   describe('When we use the find method', () => {
-    test('Then ', () => {});
+    test('Then if everything is okay, it should call the method', async () => {
+      const req = {
+        params: { id: '420' },
+      } as unknown as Request;
+      await controller.find(req, resp, next);
+      expect(mockRepoPets.find).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
 
-    test('Then', () => {});
+    test('Then if something is wrong it should throw an error', async () => {
+      const req = {
+        params: { id: '' },
+      } as unknown as Request;
+      (mockRepoPets.find as jest.Mock).mockResolvedValue([]);
+      await controller.find(req, resp, next);
+      expect(mockRepoPets.find).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
+    });
   });
 
-  // A describe('When we use the create method', () => {
-  //   test('Then it should call the create function', async () => {
-  //     const req = {
-  //       body: {
-  //         name: 'firulais',
-  //         kg: 2,
-  //         age: 3,
-  //         species: 'dog',
-  //         breed: 'chihuahua',
-  //         owner: 'un tipo',
-  //         phone: [6, 7],
-  //         email: 'emilio@emilio',
-  //         gender: 'gender fluid',
-  //       },
-  //     } as unknown as Request;
-  //     await controller.create(req, resp, next);
-  //     expect(mockRepoPets.create).toHaveBeenCalled();
-  //   });
+  describe('When we use the create method', () => {
+    test('Then it should call the create function', async () => {
+      const req = {
+        params: {
+          name: 'firulais',
+          kg: 2,
+          age: 3,
+          species: 'dog',
+          breed: 'chihuahua',
+          owner: 'un tipo',
+          phone: [6, 7],
+          email: 'emilio@emilio',
+          gender: 'gender fluid',
+        },
+      } as unknown as Request;
+      await controller.create(req, resp, next);
+      expect(mockRepoPets.create).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
 
-  //   test('Then if the request is not okay, it should throw an error', async () => {
-  //     const req = {
-  //       body: {
-  //         name: 'firulais',
-  //         kg: 2,
-  //       },
-  //     } as unknown as Request;
-  //     await controller.create(req, resp, next);
-  //     expect(next).toHaveBeenCalled();
-  //   });
-  // });
+    test('Then if the request is not okay, it should throw an error', async () => {
+      const req = {
+        params: {
+          name: 'firulais',
+          kg: 2,
+        },
+      } as unknown as Request;
+      (mockRepoPets.create as jest.Mock).mockResolvedValue([]);
+      await controller.create(req, resp, next);
+      expect(next).toHaveBeenCalled();
+    });
+  });
 
   describe('When we use the update method', () => {
-    test('Then', () => {});
+    test('Then it should call the method when we give an id', async () => {
+      const req = {
+        body: { id: '1' },
+        params: { id: '1' },
+      } as unknown as Request;
+      await controller.update(req, resp, next);
+      expect(mockRepoPets.update).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+
+    test('Then if it does not find the id, it should throw an error', async () => {
+      const req = {
+        params: {
+          id: '',
+        },
+      } as unknown as Request;
+      await controller.update(req, resp, next);
+      (mockRepoPets.find as jest.Mock).mockResolvedValue([]);
+      expect(next).toHaveBeenCalled();
+    });
   });
 
   describe('When we use the delete method', () => {
-    test('Then', () => {});
+    test('Then if it finds the id, it should call the method', async () => {
+      const req = {
+        params: {
+          id: '2',
+        },
+      } as unknown as Request;
+      await controller.delete(req, resp, next);
+      expect(mockRepoPets.delete).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
+    });
+    test('Then if there is no id, it should throw an error', async () => {
+      const req = {
+        params: { id: '' },
+      } as unknown as Request;
+      await controller.delete(req, resp, next);
+      (mockRepoPets.delete as jest.Mock).mockResolvedValue([]);
+      expect(next).toHaveBeenCalled();
+    });
   });
 });

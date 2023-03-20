@@ -44,7 +44,7 @@ export class PetsController {
     try {
       debug('Find pet');
       if (!req.params.id)
-        throw new HTTPError(400, 'Bad request', 'Pet NHC not found');
+        throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
 
       const data = await this.repo.find(req.params.id);
       resp.status(201);
@@ -84,7 +84,10 @@ export class PetsController {
   async update(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Update pet');
-      req.body.id = req.params.id ? req.params.id : req.body.id;
+      if (!req.params.id)
+        throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
+      req.body.id = req.params.id;
+
       const data = await this.repo.update(req.body);
       resp.status(201);
       resp.json({
@@ -98,6 +101,8 @@ export class PetsController {
   async delete(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Delete pet');
+      if (!req.params.id)
+        throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
       await this.repo.delete(req.params.id);
       resp.status(201);
       resp.json({
