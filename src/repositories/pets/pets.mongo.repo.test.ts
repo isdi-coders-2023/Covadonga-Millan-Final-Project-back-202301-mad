@@ -21,10 +21,10 @@ describe('Given the pets repository', () => {
     });
   });
 
-  describe(`When we use the search method`, () => {
+  describe(`When we use the find owner method`, () => {
     test('Then it should return all pets with given key/value', async () => {
       (PetModel.find as jest.Mock).mockResolvedValue([]);
-      await repo.search({ key: 'key', value: 'value' });
+      await repo.findOwner('owner');
       expect(PetModel.find).toHaveBeenCalled();
     });
   });

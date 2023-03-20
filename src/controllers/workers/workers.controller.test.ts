@@ -2,7 +2,7 @@ import { Auth } from '../../helpers/auth.js';
 import { Request, Response } from 'express';
 import { WorkersController } from './workers.controller.js';
 
-jest.mock('../helpers/auth.js');
+jest.mock('../../helpers/auth.js');
 
 const secretWord = 'secret';
 describe('Given the class WorkersController', () => {

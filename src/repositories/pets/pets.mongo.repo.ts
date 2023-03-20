@@ -16,11 +16,9 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     return data;
   }
 
-  async search(query: { key: string; value: unknown }): Promise<Pet[]> {
-    debug('Search pet');
-    const data = await PetModel.find({
-      [query.key]: query.value,
-    });
+  async findOwner(ownerElement: string): Promise<Pet[]> {
+    debug('Find owner pet');
+    const data = await PetModel.find({ owner: ownerElement });
     return data;
   }
 
