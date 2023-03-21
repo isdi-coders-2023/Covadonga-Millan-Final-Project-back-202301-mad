@@ -5,12 +5,12 @@ import { PetsController } from './pets.controller';
 
 describe('Given the pets controller', () => {
   const mockRepoPets = {
-    query: jest.fn(),
+    queryPets: jest.fn(),
     findOwner: jest.fn(),
-    find: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
+    findPet: jest.fn(),
+    createPet: jest.fn(),
+    updatePet: jest.fn(),
+    deletePet: jest.fn(),
   } as unknown as RepoPet<Pet>;
 
   const controller = new PetsController(mockRepoPets);
@@ -25,17 +25,17 @@ describe('Given the pets controller', () => {
   describe('When we use the query method', () => {
     test('Then it should get all the pets', async () => {
       const req = {} as unknown as Request;
-      (mockRepoPets.query as jest.Mock).mockResolvedValue(['e']);
-      await controller.query(req, resp, next);
-      expect(mockRepoPets.query).toHaveBeenCalled();
+      (mockRepoPets.queryPets as jest.Mock).mockResolvedValue(['e']);
+      await controller.queryPets(req, resp, next);
+      expect(mockRepoPets.queryPets).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then if the method does not work, it should throw an error', async () => {
       const req = {} as unknown as Request;
-      (mockRepoPets.query as jest.Mock).mockResolvedValue(undefined);
-      await controller.query(req, resp, next);
-      expect(mockRepoPets.query).toHaveBeenCalled();
+      (mockRepoPets.queryPets as jest.Mock).mockResolvedValue(undefined);
+      await controller.queryPets(req, resp, next);
+      expect(mockRepoPets.queryPets).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
@@ -66,8 +66,8 @@ describe('Given the pets controller', () => {
       const req = {
         params: { id: '420' },
       } as unknown as Request;
-      await controller.find(req, resp, next);
-      expect(mockRepoPets.find).toHaveBeenCalled();
+      await controller.findPet(req, resp, next);
+      expect(mockRepoPets.findPet).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
@@ -75,9 +75,9 @@ describe('Given the pets controller', () => {
       const req = {
         params: { id: '' },
       } as unknown as Request;
-      (mockRepoPets.find as jest.Mock).mockResolvedValue([]);
-      await controller.find(req, resp, next);
-      expect(mockRepoPets.find).toHaveBeenCalled();
+      (mockRepoPets.findPet as jest.Mock).mockResolvedValue([]);
+      await controller.findPet(req, resp, next);
+      expect(mockRepoPets.findPet).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });
@@ -97,8 +97,8 @@ describe('Given the pets controller', () => {
           gender: 'gender fluid',
         },
       } as unknown as Request;
-      await controller.create(req, resp, next);
-      expect(mockRepoPets.create).toHaveBeenCalled();
+      await controller.createPet(req, resp, next);
+      expect(mockRepoPets.createPet).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
@@ -109,8 +109,8 @@ describe('Given the pets controller', () => {
           kg: 2,
         },
       } as unknown as Request;
-      (mockRepoPets.create as jest.Mock).mockResolvedValue([]);
-      await controller.create(req, resp, next);
+      (mockRepoPets.createPet as jest.Mock).mockResolvedValue([]);
+      await controller.createPet(req, resp, next);
       expect(next).toHaveBeenCalled();
     });
   });
@@ -121,8 +121,8 @@ describe('Given the pets controller', () => {
         body: { id: '1' },
         params: { id: '1' },
       } as unknown as Request;
-      await controller.update(req, resp, next);
-      expect(mockRepoPets.update).toHaveBeenCalled();
+      await controller.updatePet(req, resp, next);
+      expect(mockRepoPets.updatePet).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
 
@@ -132,8 +132,8 @@ describe('Given the pets controller', () => {
           id: '',
         },
       } as unknown as Request;
-      await controller.update(req, resp, next);
-      (mockRepoPets.find as jest.Mock).mockResolvedValue([]);
+      await controller.updatePet(req, resp, next);
+      (mockRepoPets.findPet as jest.Mock).mockResolvedValue([]);
       expect(next).toHaveBeenCalled();
     });
   });
@@ -145,16 +145,16 @@ describe('Given the pets controller', () => {
           id: '2',
         },
       } as unknown as Request;
-      await controller.delete(req, resp, next);
-      expect(mockRepoPets.delete).toHaveBeenCalled();
+      await controller.deletePet(req, resp, next);
+      expect(mockRepoPets.deletePet).toHaveBeenCalled();
       expect(resp.json).toHaveBeenCalled();
     });
     test('Then if there is no id, it should throw an error', async () => {
       const req = {
         params: { id: '' },
       } as unknown as Request;
-      await controller.delete(req, resp, next);
-      (mockRepoPets.delete as jest.Mock).mockResolvedValue([]);
+      await controller.deletePet(req, resp, next);
+      (mockRepoPets.deletePet as jest.Mock).mockResolvedValue([]);
       expect(next).toHaveBeenCalled();
     });
   });

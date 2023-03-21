@@ -16,7 +16,7 @@ describe('Given the pets repository', () => {
   describe('When we use the query method', () => {
     test('Then it should return all de pets', async () => {
       (PetModel.find as jest.Mock).mockResolvedValue([]);
-      await repo.query();
+      await repo.queryPets();
       expect(PetModel.find).toHaveBeenCalled();
     });
   });
@@ -32,13 +32,13 @@ describe('Given the pets repository', () => {
   describe(`When we use the find method`, () => {
     test('Then it should return a pet with a specific id', async () => {
       (PetModel.findById as jest.Mock).mockResolvedValue([]);
-      await repo.find('id');
+      await repo.findPet('id');
       expect(PetModel.findById).toHaveBeenCalled();
     });
 
     test('Then it should throw an error if it does not find the id', async () => {
       (PetModel.findById as jest.Mock).mockImplementation();
-      expect(async () => repo.find('1')).rejects.toThrow();
+      expect(async () => repo.findPet('1')).rejects.toThrow();
     });
   });
 
@@ -50,7 +50,7 @@ describe('Given the pets repository', () => {
       const newPet = {
         name: 'perro',
       };
-      const result = await repo.create(newPet);
+      const result = await repo.createPet(newPet);
       expect(result).toEqual(newPet);
     });
   });
@@ -58,13 +58,13 @@ describe('Given the pets repository', () => {
   describe(`When we use the update method`, () => {
     test('Then it should return an updated pet', async () => {
       (PetModel.findByIdAndUpdate as jest.Mock).mockResolvedValue([]);
-      await repo.update({} as Pet);
+      await repo.updatePet({} as Pet);
       expect(PetModel.findByIdAndUpdate).toHaveBeenCalled();
     });
 
     test('Then it should throw an error if the id given does not exist', async () => {
       (PetModel.findByIdAndUpdate as jest.Mock).mockResolvedValue(undefined);
-      const result = repo.update({});
+      const result = repo.updatePet({});
       await expect(result).rejects.toThrow();
     });
   });
@@ -72,13 +72,13 @@ describe('Given the pets repository', () => {
   describe(`When we use the delete method`, () => {
     test('Then it should delete a pet', async () => {
       (PetModel.findByIdAndDelete as jest.Mock).mockResolvedValue([]);
-      await repo.delete('id');
+      await repo.deletePet('id');
       expect(PetModel.findByIdAndDelete).toHaveBeenCalled();
     });
 
     test('Then it should throw an error if the id does not exist', async () => {
       (PetModel.findByIdAndDelete as jest.Mock).mockResolvedValue(undefined);
-      const result = repo.delete('1');
+      const result = repo.deletePet('1');
       await expect(result).rejects.toThrow();
     });
   });

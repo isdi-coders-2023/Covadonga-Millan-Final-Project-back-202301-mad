@@ -11,12 +11,28 @@ export class PetsController {
     debug('Instantiate pets controller');
   }
 
-  async query(_req: Request, resp: Response, next: NextFunction) {
+  async queryPets(_req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Get all pets');
-      const data = await this.repo.query();
+      const data = await this.repo.queryPets();
       if (!data) throw new HTTPError(404, 'Not found', 'Pets not found');
 
+      resp.status(201);
+      resp.json({
+        results: [data],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async findPet(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('Find pet');
+      if (!req.params.id)
+        throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
+
+      const data = await this.repo.findPet(req.params.id);
       resp.status(201);
       resp.json({
         results: [data],
@@ -40,23 +56,7 @@ export class PetsController {
     }
   }
 
-  async find(req: Request, resp: Response, next: NextFunction) {
-    try {
-      debug('Find pet');
-      if (!req.params.id)
-        throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
-
-      const data = await this.repo.find(req.params.id);
-      resp.status(201);
-      resp.json({
-        results: [data],
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async create(req: RequestPlus, resp: Response, next: NextFunction) {
+  async createPet(req: RequestPlus, resp: Response, next: NextFunction) {
     try {
       debug('Create pet');
       if (
@@ -71,7 +71,7 @@ export class PetsController {
         !req.params.gender
       )
         throw new HTTPError(400, 'Bad request', 'Unable to create the pet');
-      const data = await this.repo.create(req.body);
+      const data = await this.repo.createPet(req.body);
       resp.status(201);
       resp.json({
         results: [data],
@@ -81,14 +81,14 @@ export class PetsController {
     }
   }
 
-  async update(req: Request, resp: Response, next: NextFunction) {
+  async updatePet(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Update pet');
       if (!req.params.id)
         throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
       req.body.id = req.params.id;
 
-      const data = await this.repo.update(req.body);
+      const data = await this.repo.updatePet(req.body);
       resp.status(201);
       resp.json({
         results: [data],
@@ -98,12 +98,12 @@ export class PetsController {
     }
   }
 
-  async delete(req: Request, resp: Response, next: NextFunction) {
+  async deletePet(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Delete pet');
       if (!req.params.id)
         throw new HTTPError(400, 'Bad request', 'Pet MRN not found');
-      await this.repo.delete(req.params.id);
+      await this.repo.deletePet(req.params.id);
       resp.status(201);
       resp.json({
         results: [],
