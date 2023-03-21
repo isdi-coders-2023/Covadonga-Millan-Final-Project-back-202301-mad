@@ -10,7 +10,7 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     debug('Instantiate pet');
   }
 
-  async query(): Promise<Pet[]> {
+  async queryPets(): Promise<Pet[]> {
     debug('Get all pets');
     const data = await PetModel.find();
     return data;
@@ -22,7 +22,7 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     return data;
   }
 
-  async find(id: string): Promise<Pet> {
+  async findPet(id: string): Promise<Pet> {
     debug('Find: ' + id);
     const data = await PetModel.findById(id);
 
@@ -31,13 +31,13 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     return data;
   }
 
-  async create(info: Partial<Pet>): Promise<Pet> {
+  async createPet(info: Partial<Pet>): Promise<Pet> {
     debug('Create pet');
     const data = await PetModel.create(info);
     return data;
   }
 
-  async update(info: Partial<Pet>): Promise<Pet> {
+  async updatePet(info: Partial<Pet>): Promise<Pet> {
     debug('Update ' + info.name);
     const data = await PetModel.findByIdAndUpdate(info.id, info, {
       new: true,
@@ -46,7 +46,7 @@ export class PetsMongoRepo implements RepoPet<Pet> {
     return data;
   }
 
-  async delete(id: string): Promise<void> {
+  async deletePet(id: string): Promise<void> {
     debug('Delete: ' + id);
     const data = await PetModel.findByIdAndDelete(id);
     if (!data) throw new HTTPError(404, 'Delete not possible', 'Id not found');
