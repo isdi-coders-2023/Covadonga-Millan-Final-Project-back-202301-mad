@@ -85,7 +85,7 @@ describe('Given the pets controller', () => {
   describe('When we use the create method', () => {
     test('Then it should call the create function', async () => {
       const req = {
-        params: {
+        body: {
           name: 'firulais',
           kg: 2,
           age: 3,
@@ -104,7 +104,7 @@ describe('Given the pets controller', () => {
 
     test('Then if the request is not okay, it should throw an error', async () => {
       const req = {
-        params: {
+        body: {
           name: 'firulais',
           kg: 2,
         },

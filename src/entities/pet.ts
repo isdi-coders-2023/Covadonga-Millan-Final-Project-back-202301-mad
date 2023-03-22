@@ -6,7 +6,7 @@ export type Pet = {
   species: string;
   breed: string;
   owner: string;
-  phone: number[];
+  phone: number;
   email: string;
   temper: string;
   gender: string;

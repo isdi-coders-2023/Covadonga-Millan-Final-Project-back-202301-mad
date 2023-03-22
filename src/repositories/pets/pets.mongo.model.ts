@@ -25,17 +25,14 @@ const petSchema = new Schema<Pet>({
   owner: {
     type: String,
     required: true,
-    unique: true,
   },
   phone: {
-    type: [Number],
+    type: Number,
     required: true,
-    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   temper: {
     type: String,
