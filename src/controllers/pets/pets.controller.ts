@@ -1,8 +1,8 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { Pet } from '../../entities/pet';
-import { HTTPError } from '../../errors/httpError';
-import { RequestPlus } from '../../interceptors/logged';
+import { Pet } from '../../entities/pet.js';
+import { HTTPError } from '../../errors/httpError.js';
+import { RequestPlus } from '../../interceptors/logged.js';
 import { RepoPet } from '../../repositories/pets/repoPet.interface.js';
 const debug = createDebug('pet-hospital:controller:pets');
 
@@ -45,11 +45,11 @@ export class PetsController {
   async findOwner(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('Find owner pets');
-      const data = await this.repo.findOwner(req.params.ownerElement);
+      const data = await this.repo.findOwner(req.params.owner);
       if (!data) throw new HTTPError(404, 'Not found', 'Pets not found');
       resp.status(201);
       resp.json({
-        results: [data],
+        results: data,
       });
     } catch (error) {
       next(error);
@@ -60,15 +60,15 @@ export class PetsController {
     try {
       debug('Create pet');
       if (
-        !req.params.name ||
-        !req.params.kg ||
-        !req.params.age ||
-        !req.params.species ||
-        !req.params.breed ||
-        !req.params.owner ||
-        !req.params.phone ||
-        !req.params.email ||
-        !req.params.gender
+        !req.body.name ||
+        !req.body.kg ||
+        !req.body.age ||
+        !req.body.species ||
+        !req.body.breed ||
+        !req.body.owner ||
+        !req.body.phone ||
+        !req.body.email ||
+        !req.body.gender
       )
         throw new HTTPError(400, 'Bad request', 'Unable to create the pet');
       const data = await this.repo.createPet(req.body);
