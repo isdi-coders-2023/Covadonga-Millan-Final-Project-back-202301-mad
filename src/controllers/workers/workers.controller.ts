@@ -39,6 +39,7 @@ export class WorkersController {
       resp.status(202);
       resp.json({
         token,
+        results: [data[0]],
       });
     } catch (error) {
       next(error);
