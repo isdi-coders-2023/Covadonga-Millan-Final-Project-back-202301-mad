@@ -23,14 +23,7 @@ export class WorkersMongoRepo implements RepoWorker<Worker> {
     debug('search');
     const data = await WorkerModel.find({ [query.key]: query.value });
     debug(data);
-
-    const result = data.map((item: any) => ({
-      ...item._doc,
-      id: item._id.toString(),
-    }));
-    console.log(data);
-
-    return result;
+    return data;
   }
 
   async create(info: Partial<Worker>): Promise<Worker> {
