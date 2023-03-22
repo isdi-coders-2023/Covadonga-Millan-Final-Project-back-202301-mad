@@ -1,8 +1,7 @@
 import cors from 'cors';
 import createDebug from 'debug';
-import express from 'express';
 import morgan from 'morgan';
-import { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { CustomError } from './errors/httpError.js';
 import { petsRouter } from './routers/pets.router.js';
 import { workersRouter } from './routers/workers.router.js';
