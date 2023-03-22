@@ -35,6 +35,7 @@ export class WorkersController {
         id: data[0].id,
         email: data[0].email,
       };
+      console.log(payload);
       const token = Auth.createJWT(payload);
       resp.status(202);
       resp.json({
