@@ -10,5 +10,5 @@ export type Pet = {
   email: string;
   temper: string;
   gender: string;
-  img: string;
+  img?: string;
 };
