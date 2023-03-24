@@ -16,11 +16,11 @@ const petSchema = new Schema<Pet>({
   },
   species: {
     type: String,
-    required: true,
+    required: false,
   },
   breed: {
     type: String,
-    required: true,
+    required: false,
   },
   owner: {
     type: String,

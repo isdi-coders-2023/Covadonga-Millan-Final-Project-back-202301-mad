@@ -63,12 +63,9 @@ export class PetsController {
         !req.body.name ||
         !req.body.kg ||
         !req.body.age ||
-        !req.body.species ||
-        !req.body.breed ||
         !req.body.owner ||
         !req.body.phone ||
-        !req.body.email ||
-        !req.body.gender
+        !req.body.email
       )
         throw new HTTPError(400, 'Bad request', 'Unable to create the pet');
       const data = await this.repo.createPet(req.body);
