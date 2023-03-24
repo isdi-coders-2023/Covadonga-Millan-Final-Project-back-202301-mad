@@ -3,7 +3,7 @@ import { Request, NextFunction, Response } from 'express';
 import { HTTPError } from '../../errors/httpError.js';
 import { Auth, PayloadToken } from '../../helpers/auth.js';
 import { WorkersMongoRepo } from '../../repositories/workers/workers.mongo.repo.js';
-const debug = createDebug('pet-hospital:workers');
+const debug = createDebug('pet-hospital:workers-controller');
 
 export class WorkersController {
   constructor(public repo: WorkersMongoRepo) {
@@ -37,9 +37,13 @@ export class WorkersController {
       };
       console.log(payload);
       const token = Auth.createJWT(payload);
+      debug('data', data);
+      const loggedWorker = data[0];
+      loggedWorker.token = token;
+
       resp.status(202);
       resp.json({
-        token,
+        results: loggedWorker.token,
       });
     } catch (error) {
       next(error);

@@ -28,10 +28,15 @@ describe('Given the class WorkersController', () => {
         },
       } as unknown as Request;
 
-      mockRepoWorkers.search.mockResolvedValue([1]);
+      (mockRepoWorkers.search as jest.Mock).mockResolvedValue([
+        { email: 'email' },
+      ]);
+
+      Auth.createJWT = jest.fn().mockResolvedValue('email');
       Auth.compare = jest.fn().mockResolvedValue(true);
       await controller.login(req, resp, next);
       expect(mockRepoWorkers.search).toHaveBeenCalled();
+      expect(resp.json).toHaveBeenCalled();
     });
 
     test('Then when the login is not successful because there is no data', async () => {
