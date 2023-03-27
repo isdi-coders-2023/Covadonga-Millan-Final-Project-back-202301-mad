@@ -11,7 +11,7 @@ export type Pet = {
   temper: string;
   gender: string;
   img?: string;
-  symptoms: [];
+  symptoms: string[];
   exam: {
     temperature: number;
     hr: number;

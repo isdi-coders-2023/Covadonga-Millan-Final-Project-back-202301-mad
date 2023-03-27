@@ -46,6 +46,16 @@ const petSchema = new Schema<Pet>({
     type: String,
     required: false,
   },
+  symptoms: [],
+
+  exam: {
+    type: Object,
+    required: false,
+  },
+  meds: {
+    type: Object,
+    required: false,
+  },
 });
 
 petSchema.set('toJSON', {
