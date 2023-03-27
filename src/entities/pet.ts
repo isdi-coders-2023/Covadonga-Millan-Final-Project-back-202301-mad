@@ -26,7 +26,7 @@ export type Pet = {
     fluids: string;
     med: string;
     ml: number;
-    min: number;
+    hour: number;
     via: string;
   };
 };
