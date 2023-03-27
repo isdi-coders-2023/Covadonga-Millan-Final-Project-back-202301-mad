@@ -17,8 +17,8 @@ petsRouter.patch(
   logged,
   controller.updatePet.bind(controller)
 );
-petsRouter.patch('/:id', logged, controller.updatePet.bind(controller));
-petsRouter.delete('/:id', logged, controller.deletePet.bind(controller));
+petsRouter.patch('/update/:id', logged, controller.updatePet.bind(controller));
+petsRouter.delete('/delete/:id', logged, controller.deletePet.bind(controller));
 petsRouter.get('/owners/:owner', logged, controller.findOwner.bind(controller));
-petsRouter.get('/:id', logged, controller.findPet.bind(controller));
-petsRouter.get('/', logged, controller.queryPets.bind(controller));
+petsRouter.get('/find/:id', logged, controller.findPet.bind(controller));
+petsRouter.get('/search', logged, controller.queryPets.bind(controller));

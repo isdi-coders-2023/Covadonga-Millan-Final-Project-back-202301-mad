@@ -11,4 +11,22 @@ export type Pet = {
   temper: string;
   gender: string;
   img?: string;
+  symptoms: string[];
+  exam: {
+    temperature: number;
+    hr: number;
+    rr: number;
+    membrane: string;
+    cap: number;
+    sap: number;
+    dap: number;
+    map: number;
+  };
+  meds: {
+    fluids: string;
+    med: string;
+    ml: number;
+    hour: number;
+    via: string;
+  };
 };
