@@ -19,7 +19,7 @@ export class PetsController {
 
       resp.status(201);
       resp.json({
-        results: [data],
+        results: data,
       });
     } catch (error) {
       next(error);
