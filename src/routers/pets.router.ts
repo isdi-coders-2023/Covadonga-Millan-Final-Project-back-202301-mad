@@ -17,6 +17,11 @@ petsRouter.patch(
   logged,
   controller.updatePet.bind(controller)
 );
+petsRouter.patch(
+  '/update/symptoms/:id',
+  logged,
+  controller.updatePet.bind(controller)
+);
 petsRouter.patch('/update/:id', logged, controller.updatePet.bind(controller));
 petsRouter.delete('/delete/:id', logged, controller.deletePet.bind(controller));
 petsRouter.get('/owners/:owner', logged, controller.findOwner.bind(controller));
