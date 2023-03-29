@@ -46,14 +46,52 @@ const petSchema = new Schema<Pet>({
     type: String,
     required: false,
   },
-  symptoms: [],
-
-  exam: {
-    type: Object,
+  symptoms: {
+    type: String,
+    required: false,
+  },
+  temperature: {
+    type: Number,
+    required: false,
+  },
+  hr: {
+    type: Number,
+    required: false,
+  },
+  rr: {
+    type: Number,
+    required: false,
+  },
+  sap: {
+    type: Number,
+    required: false,
+  },
+  dap: {
+    type: Number,
+    required: false,
+  },
+  map: {
+    type: Number,
+    required: false,
+  },
+  fluids: {
+    type: String,
     required: false,
   },
   meds: {
-    type: Object,
+    type: String,
+    required: false,
+  },
+  ml: {
+    type: Number,
+    required: false,
+  },
+  hour: {
+    type: Number,
+    required: false,
+  },
+  via: {
+    type: String,
     required: false,
   },
 });
