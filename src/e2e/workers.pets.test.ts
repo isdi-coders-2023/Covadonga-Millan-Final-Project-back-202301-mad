@@ -184,6 +184,10 @@ describe('Given the Pet Hospital app and the /pets route', () => {
 
     tokenWorkerTest = Auth.createJWT(newWorkerToken);
   });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
+  });
   describe('When the Post method to pets/create path is performed  ', () => {
     test('Then if the information is OK, the status code should be 201', async () => {
       const createMock = {
