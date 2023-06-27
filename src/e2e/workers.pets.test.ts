@@ -175,7 +175,6 @@ describe('Given the Pet Hospital app and the /pets route', () => {
     await dbConnect();
 
     const workersIdsTest: string[] = await setWorkerCollection();
-    const petIdTest: string[] = await setPetCollection();
 
     newWorkerToken = {
       id: workersIdsTest[1],
