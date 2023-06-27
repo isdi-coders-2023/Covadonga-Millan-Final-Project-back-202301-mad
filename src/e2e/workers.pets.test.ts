@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { dbConnect } from '../db/db.connect';
-import { Pet } from '../entities/pet';
 import { Auth, PayloadToken } from '../helpers/auth';
 import { PetModel } from '../repositories/pets/pets.mongo.model';
 import { WorkerModel } from '../repositories/workers/workers.mongo.model';
