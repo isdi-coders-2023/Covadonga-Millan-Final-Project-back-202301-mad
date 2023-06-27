@@ -13,11 +13,6 @@ const repo = new PetsMongoRepo();
 const controller = new PetsController(repo);
 petsRouter.post('/create', logged, controller.createPet.bind(controller));
 petsRouter.patch(
-  '/discharge/:id',
-  logged,
-  controller.updatePet.bind(controller)
-);
-petsRouter.patch(
   '/update/symptoms/:id',
   logged,
   controller.updatePet.bind(controller)
